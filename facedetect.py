@@ -1,6 +1,6 @@
 import cv2
 # for random color of rectangle
-from random import randrange
+#from random import randrange
 
 
 # load some pre-trained data on face frontal from opencv
@@ -13,14 +13,27 @@ trained_face_data=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 # 2nd image
 # more than one person
-img=cv2.imread('pair.jfif')
+#img=cv2.imread('pair.jfif')
+
+# to capture video from webcam
+# 1 is for specific webcam 0 is for default
+webcam=cv2.VideoCapture(1)
+
+#iterate forever over frames
+while True:
+
+     #read the current frame
+     succsessful_frame_read,frame=webcam.read()
+
+     #Must convert to grayscale 
+     grayscaled_img=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+
+     cv2.imshow('wahe face detector', grayscaled_img)
+     # here 1 is waut for milisecond
+     cv2.waitKey(1)
 
 
-
-#Must convert to grayscale 
-grayscaled_img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-
-
+"""
 # detect faces
 face_coordinates= trained_face_data.detectMultiScale(grayscaled_img)
 
@@ -38,9 +51,9 @@ for(x,y,w,h) in face_coordinates:
 
 # to show image
 cv2.imshow('wahe face detector', img)
-
 # until we press any key it will not close
 cv2.waitKey()
 
 
 print("code complete")
+"""
