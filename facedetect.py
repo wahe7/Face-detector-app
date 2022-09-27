@@ -1,9 +1,10 @@
 import cv2
 # for random color of rectangle
-#from random import randrange
+from random import randrange
 
 
 # load some pre-trained data on face frontal from opencv
+# harr is inventor  and cascade is chain of event
 trained_face_data=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
@@ -28,20 +29,31 @@ while True:
      #Must convert to grayscale 
      grayscaled_img=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 
-     cv2.imshow('wahe face detector', grayscaled_img)
+     # detect faces
+     face_coordinates= trained_face_data.detectMultiScale(grayscaled_img)
+
+     
+     #Draw rectangle around the faces
+     #use of loop
+     for(x,y,w,h) in face_coordinates:
+          cv2.rectangle(frame , (x,y),(x+w,y+h),(randrange(256),randrange(256),randrange(256)),2)
+
+     cv2.imshow('wahe face detector', frame)
      # here 1 is waut for milisecond
-     cv2.waitKey(1)
+     key = cv2.waitKey(1)
+
+     # stop if Q key is pressed
+
+     if key==81 or key==113: #ascii value of Q and q.
+          break
+
+     # release webcam
+webcam.relaese()
 
 
-"""
-# detect faces
-face_coordinates= trained_face_data.detectMultiScale(grayscaled_img)
+"""  
 
 
-#Draw rectangle around the faces
-# use of loop
-for(x,y,w,h) in face_coordinates:
-     cv2.rectangle(img , (x,y),(x+w,y+h),(randrange(255),randrange(255),randrange(255)),2)
 
 
 
